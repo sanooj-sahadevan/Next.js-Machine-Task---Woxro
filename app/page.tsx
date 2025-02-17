@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
-import Hero from '@/components/home'
+import HomePage from '@/components/homePage'
+import Footer from '@/components/footer'
+
 
 export default function Home() {
   return (
-    <Hero />
+    <><HomePage />
+      {/* <BodyMain/> */}
+      <Footer /></>
   );
 }
