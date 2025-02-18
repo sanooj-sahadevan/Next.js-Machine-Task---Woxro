@@ -1,10 +1,11 @@
 'use client';
-import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
-import Lenis from 'lenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import gsap from 'gsap';
 import { cubesData, interpolate } from '@/cubes/cubesPostion';
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import Image from 'next/image';
+
 
 
 gsap.registerPlugin(ScrollTrigger);
