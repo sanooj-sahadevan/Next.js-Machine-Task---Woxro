@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
@@ -7,9 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import { cubesData, interpolate } from '@/cubes/cubesPostion';
 
+
 gsap.registerPlugin(ScrollTrigger);
 
-export default function LandingPage() {
+export default function HomePage() {
   const stickySectionRef = useRef<HTMLDivElement>(null);
   const logoContainerRef = useRef<HTMLDivElement>(null);
   const cubeElementsRefs = useRef<HTMLDivElement[]>([]);
@@ -36,7 +36,10 @@ export default function LandingPage() {
       onUpdate: (scrollState: { progress: number }) => {
         const progress = scrollState.progress;
 
-        // Update logo blur and opacity
+
+        /**
+         *  logo blur and opacity
+         */
         if (logoContainerRef.current) {
           const logoBlur = Math.min(progress * 20, 1);
           logoContainerRef.current.style.filter = `blur(${interpolate(0, 20, logoBlur)}px)`;
@@ -44,7 +47,6 @@ export default function LandingPage() {
           logoContainerRef.current.style.opacity = `${1 - logoOpacity}`;
         }
 
-        // Update primary header (scale, blur, and fade)
         if (headerPrimaryRef.current) {
           const fadeStart = 0.08;
           const fadeDuration = 0.7;
@@ -59,7 +61,9 @@ export default function LandingPage() {
           headerPrimaryRef.current.style.filter = `blur(${blurEffect}px)`;
         }
 
-        // Update secondary header opacity based on scroll progress
+        /**
+         *  Update secondary opacity based on scroll
+         */
         if (headerSecondaryRef.current) {
           let secondaryOpacity = 0;
           if (progress > 0.6) {
@@ -68,7 +72,10 @@ export default function LandingPage() {
           headerSecondaryRef.current.style.opacity = `${secondaryOpacity}`;
         }
 
-        // Update cubes position and rotation
+
+        /**
+         *  Update cubes position and rotation
+         */
         const firstPhaseProgress = Math.min(progress * 2, 1);
         const secondPhaseProgress = progress >= 0.5 ? (progress - 0.5) * 2 : 0;
 
@@ -98,6 +105,7 @@ export default function LandingPage() {
 
     return () => {
       scrollInstance.destroy();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ScrollTrigger.getAll().forEach((trigger: { kill: () => any }) => trigger.kill());
     };
   }, []);
@@ -107,6 +115,8 @@ export default function LandingPage() {
   return (
     <div>
       <section className="sticky h-screen bg-[#331707] text-[#ffe9d9]" ref={stickySectionRef}>
+        {/* this is the homepage and logo  */}
+
         <div
           className="logo absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-6 z-20" ref={logoContainerRef}
         >
@@ -132,12 +142,9 @@ export default function LandingPage() {
           ))}
         </div>
 
-
-
-
+        {/* this is animation cubes  */}
         <div className="cubes absolute top-0 left-0 h-screen w-full transform-style-preserve-3d perspective-1000">
           {Array.from({ length: 6 }).map((_, index) => {
-            // Define images for each side of the cube
             const images = {
               front: `/asset/${index + 1}-front.jpeg`,
               back: `/asset/${index + 1}-back.jpeg`,
@@ -171,6 +178,7 @@ export default function LandingPage() {
           })}
         </div>
 
+
         <div>
           <div
             className="w-3/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center origin-center text-[30px] sm:mt-5 lg:mt-0 lg:text-[50px] font-serif"
@@ -182,8 +190,7 @@ export default function LandingPage() {
           <div className="header-two mt-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] text-center opacity-0" ref={headerSecondaryRef}>
             <h2 className="text-lg lg:text-2xl font-bold mb-3">Where innovation meets precision.</h2>
             <p className="text-lg leading-[30px]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, nam? Incidunt ad praesentium temporibus ipsum rem perspiciatis ut commodi soluta odio nisi quos sed excepturi voluptate itaque, impedit magnam numquam.
-            </p>
+              Symphonia unites visionary thinkers, creative architects, and analytical experts, collaborating seamlessly to transform challenges into opportunities. Together, we deliver tailored solutions that drive impact and inspire growth.            </p>
           </div>
         </div>
       </section>

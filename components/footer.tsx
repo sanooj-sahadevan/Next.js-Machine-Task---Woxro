@@ -1,7 +1,3 @@
-'use client';
-
-import React from 'react';
-
 const Section = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-[#EAD7C6]">
