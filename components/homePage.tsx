@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
-import { cubesData, interpolate } from '@/constants/constant';
+import { cubesData, interpolate } from '@/cubes/cubesPostion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,7 +102,7 @@ export default function LandingPage() {
     };
   }, []);
 
-  
+
 
   return (
     <div>
@@ -136,27 +136,39 @@ export default function LandingPage() {
 
 
         <div className="cubes absolute top-0 left-0 h-screen w-full transform-style-preserve-3d perspective-1000">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div
-              className={`cube absolute w-[150px] h-[150px] transform-style-preserve-3d opacity-0 cube-${index + 1}`}
-              ref={(el) => { cubeElementsRefs.current[index] = el!; }}
-              key={index}
-            >
-              {['front', 'back', 'left', 'right', 'top', 'bottom'].map((side) => (
-                <div
-                  key={side}
-                  className={`absolute w-full h-full transform-style-preserve-3d backface-hidden ${side}  bg-yellow-700 z-20`}
-                >
-                  <Image
-                    src={`/asset/1${index + 1}.jpeg`}
-                    alt={side}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
+          {Array.from({ length: 6 }).map((_, index) => {
+            // Define images for each side of the cube
+            const images = {
+              front: `/asset/${index + 1}-front.jpeg`,
+              back: `/asset/${index + 1}-back.jpeg`,
+              left: `/asset/${index + 1}-left.jpeg`,
+              right: `/asset/${index + 1}-right.jpeg`,
+              top: `/asset/${index + 1}-top.jpeg`,
+              bottom: `/asset/${index + 1}-bottom.jpeg`,
+            };
+
+            return (
+              <div
+                className={`cube absolute w-[150px] h-[150px] transform-style-preserve-3d opacity-0 cube-${index + 1}`}
+                ref={(el) => { cubeElementsRefs.current[index] = el!; }}
+                key={index}
+              >
+                {Object.entries(images).map(([side, imgSrc]) => (
+                  <div
+                    key={side}
+                    className={`absolute w-full h-full transform-style-preserve-3d backface-hidden ${side} bg-yellow-700 z-20`}
+                  >
+                    <Image
+                      src={imgSrc}
+                      alt={side}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            );
+          })}
         </div>
 
         <div>
