@@ -6,8 +6,6 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import Image from 'next/image';
 
-
-
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
@@ -37,10 +35,6 @@ export default function HomePage() {
       onUpdate: (scrollState: { progress: number }) => {
         const progress = scrollState.progress;
 
-
-        /**
-         *  logo blur and opacity
-         */
         if (logoContainerRef.current) {
           const logoBlur = Math.min(progress * 20, 1);
           logoContainerRef.current.style.filter = `blur(${interpolate(0, 20, logoBlur)}px)`;
@@ -62,9 +56,6 @@ export default function HomePage() {
           headerPrimaryRef.current.style.filter = `blur(${blurEffect}px)`;
         }
 
-        /**
-         *  Update secondary opacity based on scroll
-         */
         if (headerSecondaryRef.current) {
           let secondaryOpacity = 0;
           if (progress > 0.6) {
@@ -73,10 +64,6 @@ export default function HomePage() {
           headerSecondaryRef.current.style.opacity = `${secondaryOpacity}`;
         }
 
-
-        /**
-         *  Update cubes position and rotation
-         */
         const firstPhaseProgress = Math.min(progress * 2, 1);
         const secondPhaseProgress = progress >= 0.5 ? (progress - 0.5) * 2 : 0;
 
@@ -111,16 +98,10 @@ export default function HomePage() {
     };
   }, []);
 
-
-
   return (
     <div>
       <section className="sticky h-screen bg-[#331707] text-[#ffe9d9]" ref={stickySectionRef}>
-        {/* this is the homepage and logo  */}
-
-        <div
-          className="logo absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-6 z-20" ref={logoContainerRef}
-        >
+        <div className="logo absolute top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-6 z-20" ref={logoContainerRef}>
           {Array.from({ length: 3 }).map((_, rowIndex) => (
             <div className="flex flex-col items-center justify-end" key={rowIndex}>
               {Array.from({ length: 2 }).map((_, colIndex) => {
@@ -143,7 +124,6 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* this is animation cubes  */}
         <div className="cubes absolute top-0 left-0 h-screen w-full transform-style-preserve-3d perspective-1000">
           {Array.from({ length: 6 }).map((_, index) => {
             const images = {
@@ -179,7 +159,6 @@ export default function HomePage() {
           })}
         </div>
 
-
         <div>
           <div
             className="w-3/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center origin-center text-[30px] sm:mt-5 lg:mt-0 lg:text-[50px] font-serif"
@@ -191,7 +170,8 @@ export default function HomePage() {
           <div className="header-two mt-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] text-center opacity-0" ref={headerSecondaryRef}>
             <h2 className="text-lg lg:text-2xl font-bold mb-3">Where innovation meets precision.</h2>
             <p className="text-lg leading-[30px]">
-              Symphonia unites visionary thinkers, creative architects, and analytical experts, collaborating seamlessly to transform challenges into opportunities. Together, we deliver tailored solutions that drive impact and inspire growth.            </p>
+              Symphonia unites visionary thinkers, creative architects, and analytical experts, collaborating seamlessly to transform challenges into opportunities. Together, we deliver tailored solutions that drive impact and inspire growth.
+            </p>
           </div>
         </div>
       </section>
