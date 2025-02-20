@@ -178,3 +178,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+// transform: translate(-50%, -50%) scale(1); filter: blur(0px); opacity: 1;
